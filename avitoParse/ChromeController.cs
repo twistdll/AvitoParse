@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -39,12 +35,35 @@ namespace avitoParse
         public void StartParsing()
         {
             _chromeDriver = new ChromeDriver(_chromeService, _chromeOptions);
-            _chromeDriver.Navigate().GoToUrl("https://www.avito.ru/" + _regionName);
+            _chromeDriver.Navigate().GoToUrl("https://www.avito.ru/");
+            ChooseRegion();
             EnterSearchQuery();
             Thread.Sleep(2000);
             GetLinksList();
+            _chromeDriver.Close();
         }
 
+        private void ChooseRegion()
+        {
+            try
+            {
+                IWebElement regionElement = _chromeDriver.FindElement(By.CssSelector(".main-locationWrapper-R8itV"));
+                regionElement.Click();
+                IWebElement regionInput = _chromeDriver.FindElement(By.CssSelector(".suggest-input-rORJM"));
+                regionInput.Click();
+                regionInput.SendKeys(_regionName);
+                Thread.Sleep(1000);
+                regionInput.SendKeys(Keys.Enter);
+                regionInput = _chromeDriver.FindElement(By.CssSelector(".button-button-CmK9a.button-size-m-LzYrF.button-primary-x_x8w"));
+                regionInput.Click();
+                Thread.Sleep(1000);
+            }
+            catch (NoSuchElementException)
+            {
+                return;
+            }  
+        }
+        
         private void EnterSearchQuery()
         {
             try

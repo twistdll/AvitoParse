@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace avitoParse
@@ -29,18 +22,18 @@ namespace avitoParse
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (siticoneCheckBox1.Checked)
-                InfoSerializer.WriteName();
+                InfoSerializer.WriteName(textBox1.Text);
             else
                 InfoSerializer.DeleteName();
         }
 
-        private void siticoneButton1_Click(object sender, EventArgs e)
+        private void siticoneButton1_Click(object sender, EventArgs e) 
         {
             _chromeController.SetRegionName(textBox1.Text);
             _chromeController.SetQueryText(textBox2.Text);
             ChangeTextBoxesState(false);
-            siticoneButton1.Text = "Идёт обработка...";
             siticoneButton1.Enabled = false;
+            siticoneButton1.Text = "Идёт обработка...";
             _chromeController.StartParsing();
             ChangeTextBoxesState(true);
             siticoneButton1.Text = "Начать обработку";

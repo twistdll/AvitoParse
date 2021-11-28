@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
-
 
 namespace avitoParse
 {
@@ -19,10 +13,10 @@ namespace avitoParse
             return File.Exists(_defaultRegionFilePath) ? File.ReadAllText(_defaultRegionFilePath) : string.Empty;
         }
 
-        public static void WriteName()
+        public static void WriteName(string name)
         {
             File.Create(_defaultRegionFilePath).Close();
-            File.WriteAllText(_defaultRegionFilePath, "");
+            File.WriteAllText(_defaultRegionFilePath, name);
         }
 
         public static void DeleteName()
