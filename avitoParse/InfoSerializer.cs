@@ -25,13 +25,13 @@ namespace avitoParse
                 File.Delete(_defaultRegionFilePath);
         }
 
-        public static void WriteList(List<string> links)
+        public static void WriteList(List<string> list)
         {
             File.Create(_defaultListFilePath).Close();
 
-            foreach (string link in links)
+            foreach (var element in list)
             {
-                File.AppendAllText(_defaultListFilePath, link + "\n");
+                File.AppendAllText(_defaultListFilePath, element + "\n");
             }
         }
     }

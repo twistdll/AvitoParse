@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace avitoParse
@@ -27,14 +28,29 @@ namespace avitoParse
                 InfoSerializer.DeleteName();
         }
 
-        private void siticoneButton1_Click(object sender, EventArgs e) 
+        private void siticoneButton1_Click(object sender, EventArgs e)
         {
             _chromeController.SetRegionName(textBox1.Text);
             _chromeController.SetQueryText(textBox2.Text);
+            StartParsing();
+        }
+
+        private async void StartParsing()
+        {
+            DisableUI();
+            await Task.Run(() => _chromeController.Parse());
+            EnableUI();
+        }
+
+        private void DisableUI()
+        {
             ChangeTextBoxesState(false);
             siticoneButton1.Enabled = false;
             siticoneButton1.Text = "Идёт обработка...";
-            _chromeController.StartParsing();
+
+        }
+        private void EnableUI()
+        {
             ChangeTextBoxesState(true);
             siticoneButton1.Text = "Начать обработку";
             siticoneButton1.Enabled = true;

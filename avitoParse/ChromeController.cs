@@ -32,14 +32,14 @@ namespace avitoParse
             _queryText = text;
         }
 
-        public void StartParsing()
+        public void Parse()
         {
             _chromeDriver = new ChromeDriver(_chromeService, _chromeOptions);
             _chromeDriver.Navigate().GoToUrl("https://www.avito.ru/");
             ChooseRegion();
             EnterSearchQuery();
             Thread.Sleep(2000);
-            GetLinksList();
+            InfoSerializer.WriteList(GetAdsList());
             _chromeDriver.Close();
         }
 
@@ -61,9 +61,9 @@ namespace avitoParse
             catch (NoSuchElementException)
             {
                 return;
-            }  
+            }
         }
-        
+
         private void EnterSearchQuery()
         {
             try
@@ -78,17 +78,25 @@ namespace avitoParse
             }
         }
 
-        private void GetLinksList()
+        private List<string> GetAdsList()
         {
-            var ads = _chromeDriver.FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a"));
-            List<string> links = new List<string>();
+            var links = _chromeDriver.FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a"));
+            var names = _chromeDriver.FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a > h3"));
+            var prices = _chromeDriver.FindElements(By.CssSelector(".price-price-BQkOZ :nth-child(2)"));
 
-            foreach (var element in ads)
+            List<string> result = new List<string>();
+
+            for (int i = 0; i < links.Count; i++)
             {
-                links.Add(element.GetAttribute("href"));
+                string price = prices[i].GetAttribute("content");
+
+                result.Add(links[i].GetAttribute("href") + " " +
+                           names[i].Text + " " + 
+                           "Цена: " + (price == "..." ? "не указана" : price)
+                    );;
             }
 
-            InfoSerializer.WriteList(links);
+            return result;
         }
     }
 }
