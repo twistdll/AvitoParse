@@ -26,6 +26,8 @@ namespace avitoParse
                 InfoSerializer.WriteName(textBox1.Text);
             else
                 InfoSerializer.DeleteName();
+
+            _chromeController.CloseDriver();
         }
 
         private void siticoneButton1_Click(object sender, EventArgs e)
@@ -42,18 +44,33 @@ namespace avitoParse
             EnableUI();
         }
 
+        private void refreshButton_Click_1(object sender, EventArgs e)
+        {
+            totalPagesCount.Text = _chromeController.PagesCount.ToString();
+            currentPageCount.Text = _chromeController.CurrentPageNumber.ToString();
+        }
+
         private void DisableUI()
         {
             ChangeTextBoxesState(false);
+            ChangePageTrackersState(true);
             siticoneButton1.Enabled = false;
             siticoneButton1.Text = "Идёт обработка...";
-
         }
         private void EnableUI()
         {
             ChangeTextBoxesState(true);
+            ChangePageTrackersState(false);
             siticoneButton1.Text = "Начать обработку";
             siticoneButton1.Enabled = true;
+        }
+
+        private void ChangePageTrackersState(bool state)
+        {
+            totalPagesCount.Visible = state;
+            currentPageCount.Visible = state;
+            slashPageCount.Visible = state;
+            refreshButton.Visible = state;
         }
 
         private void ChangeTextBoxesState(bool state)

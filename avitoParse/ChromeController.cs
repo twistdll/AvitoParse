@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using OpenQA.Selenium;
@@ -8,11 +9,15 @@ namespace avitoParse
 {
     class ChromeController
     {
+        public uint PagesCount { get; private set; }
+        public uint CurrentPageNumber { get; private set; }
+
         private ChromeDriver _chromeDriver;
         private ChromeOptions _chromeOptions;
         private ChromeDriverService _chromeService;
         private string _regionName;
         private string _queryText;
+        
 
         public ChromeController()
         {
@@ -24,7 +29,7 @@ namespace avitoParse
             _chromeService.HideCommandPromptWindow = true;
         }
 
-        public void SetRegionName(string name) //incorrect but dont know how to realise this properly
+        public void SetRegionName(string name)
         {
             _regionName = name;
         }
@@ -39,8 +44,24 @@ namespace avitoParse
             _chromeDriver.Navigate().GoToUrl("https://www.avito.ru/");
             ChooseRegion();
             EnterSearchQuery();
+
             Thread.Sleep(2000);
-            InfoSerializer.WriteList(GetAdsList());
+
+            SetPagesCount();
+            InfoSerializer.CreateFile();
+
+            for (uint i = 1; i <= PagesCount; i++)
+            {
+                CurrentPageNumber = i;
+                InfoSerializer.WritePage(GetAdsOnPage(),i);
+                GoToNextPage(i);
+            }
+
+            _chromeDriver.Close();
+        }
+
+        public void CloseDriver()
+        {
             _chromeDriver.Close();
         }
 
@@ -53,10 +74,13 @@ namespace avitoParse
                 IWebElement regionInput = _chromeDriver.FindElement(By.CssSelector(".suggest-input-rORJM"));
                 regionInput.Click();
                 regionInput.SendKeys(_regionName);
+
                 Thread.Sleep(1000);
+
                 regionInput.SendKeys(Keys.Enter);
                 regionInput = _chromeDriver.FindElement(By.CssSelector(".button-button-CmK9a.button-size-m-LzYrF.button-primary-x_x8w"));
                 regionInput.Click();
+
                 Thread.Sleep(1000);
             }
             catch (NoSuchElementException)
@@ -79,7 +103,29 @@ namespace avitoParse
             }
         }
 
-        private List<string> GetAdsList()
+        private void SetPagesCount()
+        {
+            try
+            {
+                PagesCount = uint.Parse(_chromeDriver
+                    .FindElement(By.CssSelector(".pagination-root-Ntd_O :nth-last-child(-n+2)"))
+                    .Text);
+            }
+            catch (NoSuchElementException)
+            {
+                PagesCount = 1;
+            }
+        }
+
+        private void GoToNextPage(uint pageNumber)
+        {
+            string currentURL = _chromeDriver.Url;
+            string newURL = pageNumber == 1 ? currentURL.Replace("q=", $"p={pageNumber + 1}&q=") : currentURL.Replace($"p={pageNumber}&q=", $"p={pageNumber + 1}&q=");
+            _chromeDriver.Navigate().GoToUrl(newURL);
+            Thread.Sleep(500);
+        }
+
+        private List<string> GetAdsOnPage()
         {
             List<string> links = _chromeDriver
                 .FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a"))
@@ -90,14 +136,14 @@ namespace avitoParse
                 .FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a > h3"))
                 .Select(e => e.Text)
                 .ToList();
-            
+
             List<string> prices = _chromeDriver
                 .FindElements(By.CssSelector(".price-price-BQkOZ :nth-child(2)"))
                 .Select(e => e.GetAttribute("content"))
                 .Select(e => e == "..." ? e = "не указана" : e)
                 .ToList();
 
-            return AdsListConstructer.Construct(links,names,prices);
+            return AdsListConstructer.Construct(links, names, prices);
         }
     }
 }
