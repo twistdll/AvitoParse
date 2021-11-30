@@ -25,13 +25,23 @@ namespace avitoParse
                 File.Delete(_defaultRegionFilePath);
         }
 
-        public static void WriteList(List<string> list)
+        public static void CreateFile()
         {
             File.Create(_defaultListFilePath).Close();
+        }
 
-            foreach (var element in list)
+        public static void WritePage(List<string> list, uint pageNumber)
+        {
+            if (File.Exists(_defaultListFilePath))
             {
-                File.AppendAllText(_defaultListFilePath, element + "\n");
+                File.AppendAllText(_defaultListFilePath, "Страница: " + pageNumber + "\n");
+
+                foreach (var element in list)
+                {
+                    File.AppendAllText(_defaultListFilePath, element + "\n");
+                }
+
+                File.AppendAllText(_defaultListFilePath, "\n");
             }
         }
     }

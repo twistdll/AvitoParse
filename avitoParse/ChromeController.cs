@@ -13,6 +13,7 @@ namespace avitoParse
         private ChromeDriverService _chromeService;
         private string _regionName;
         private string _queryText;
+        private uint _pagesCount;
 
         public ChromeController()
         {
@@ -39,9 +40,23 @@ namespace avitoParse
             _chromeDriver.Navigate().GoToUrl("https://www.avito.ru/");
             ChooseRegion();
             EnterSearchQuery();
+
             Thread.Sleep(2000);
-            InfoSerializer.WriteList(GetAdsList());
-            _chromeDriver.Close();
+
+            SetPagesCount();
+            InfoSerializer.CreateFile();
+
+            for (uint i = 1; i <= _pagesCount; i++)
+            {
+                InfoSerializer.WritePage(GetAdsOnPage(), i);
+                GoToNextPage(i);
+            }
+        }
+
+        public void CloseDriver()
+        {
+            try { _chromeDriver.Close(); }
+            catch { return; }
         }
 
         private void ChooseRegion()
@@ -53,10 +68,13 @@ namespace avitoParse
                 IWebElement regionInput = _chromeDriver.FindElement(By.CssSelector(".suggest-input-rORJM"));
                 regionInput.Click();
                 regionInput.SendKeys(_regionName);
+
                 Thread.Sleep(1000);
+
                 regionInput.SendKeys(Keys.Enter);
                 regionInput = _chromeDriver.FindElement(By.CssSelector(".button-button-CmK9a.button-size-m-LzYrF.button-primary-x_x8w"));
                 regionInput.Click();
+
                 Thread.Sleep(1000);
             }
             catch (NoSuchElementException)
@@ -78,8 +96,30 @@ namespace avitoParse
                 return;
             }
         }
+        private void SetPagesCount()
+        {
+            try
+            {
+                _pagesCount = ParsingMode.OnlyOnePage == false ? 
+                    uint.Parse(_chromeDriver
+                    .FindElement(By.CssSelector(".pagination-root-Ntd_O :nth-last-child(-n+2)")).Text) : 1;
+            }
+            catch (NoSuchElementException)
+            {
+                _pagesCount = 1;
+            }
+        }
 
-        private List<string> GetAdsList()
+        private void GoToNextPage(uint pageNumber)
+        {
+            string currentURL = _chromeDriver.Url;
+            string newURL = pageNumber == 1 ? currentURL.Replace("q=", $"p={pageNumber + 1}&q=") : currentURL.Replace($"p={pageNumber}&q=", $"p={pageNumber + 1}&q=");
+            _chromeDriver.Navigate().GoToUrl(newURL);
+
+            Thread.Sleep(500);
+        }
+
+        private List<string> GetAdsOnPage()
         {
             List<string> links = _chromeDriver
                 .FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a"))

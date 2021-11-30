@@ -44,6 +44,7 @@ namespace avitoParse
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.siticoneCheckBox1 = new Siticone.Desktop.UI.WinForms.SiticoneCheckBox();
             this.siticoneDragControl2 = new Siticone.Desktop.UI.WinForms.SiticoneDragControl(this.components);
+            this.siticoneCheckBox2 = new Siticone.Desktop.UI.WinForms.SiticoneCheckBox();
             this.siticonePanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -62,7 +63,7 @@ namespace avitoParse
             this.siticonePanel1.Location = new System.Drawing.Point(0, 0);
             this.siticonePanel1.Name = "siticonePanel1";
             this.siticonePanel1.ShadowDecoration.Parent = this.siticonePanel1;
-            this.siticonePanel1.Size = new System.Drawing.Size(427, 41);
+            this.siticonePanel1.Size = new System.Drawing.Size(418, 41);
             this.siticonePanel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -85,7 +86,7 @@ namespace avitoParse
             this.siticoneControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(27)))));
             this.siticoneControlBox3.HoverState.Parent = this.siticoneControlBox3;
             this.siticoneControlBox3.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox3.Location = new System.Drawing.Point(336, 0);
+            this.siticoneControlBox3.Location = new System.Drawing.Point(327, 0);
             this.siticoneControlBox3.Name = "siticoneControlBox3";
             this.siticoneControlBox3.ShadowDecoration.Parent = this.siticoneControlBox3;
             this.siticoneControlBox3.Size = new System.Drawing.Size(45, 29);
@@ -97,7 +98,7 @@ namespace avitoParse
             this.siticoneControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(27)))));
             this.siticoneControlBox1.HoverState.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox1.Location = new System.Drawing.Point(381, 0);
+            this.siticoneControlBox1.Location = new System.Drawing.Point(372, 0);
             this.siticoneControlBox1.Name = "siticoneControlBox1";
             this.siticoneControlBox1.ShadowDecoration.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.Size = new System.Drawing.Size(45, 29);
@@ -142,7 +143,7 @@ namespace avitoParse
             this.siticoneButton1.Font = new System.Drawing.Font("Papyrus", 13F);
             this.siticoneButton1.ForeColor = System.Drawing.Color.White;
             this.siticoneButton1.HoverState.Parent = this.siticoneButton1;
-            this.siticoneButton1.Location = new System.Drawing.Point(17, 169);
+            this.siticoneButton1.Location = new System.Drawing.Point(17, 210);
             this.siticoneButton1.Name = "siticoneButton1";
             this.siticoneButton1.ShadowDecoration.Parent = this.siticoneButton1;
             this.siticoneButton1.Size = new System.Drawing.Size(294, 45);
@@ -158,6 +159,7 @@ namespace avitoParse
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(135, 20);
             this.textBox1.TabIndex = 4;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -167,6 +169,7 @@ namespace avitoParse
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(176, 20);
             this.textBox2.TabIndex = 5;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // siticoneCheckBox1
             // 
@@ -195,12 +198,37 @@ namespace avitoParse
             // 
             this.siticoneDragControl2.TargetControl = this.pictureBox1;
             // 
+            // siticoneCheckBox2
+            // 
+            this.siticoneCheckBox2.AutoSize = true;
+            this.siticoneCheckBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(35)))));
+            this.siticoneCheckBox2.Checked = true;
+            this.siticoneCheckBox2.CheckedState.BorderColor = System.Drawing.Color.White;
+            this.siticoneCheckBox2.CheckedState.BorderRadius = 1;
+            this.siticoneCheckBox2.CheckedState.BorderThickness = 1;
+            this.siticoneCheckBox2.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(35)))));
+            this.siticoneCheckBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.siticoneCheckBox2.Font = new System.Drawing.Font("Papyrus", 9F, System.Drawing.FontStyle.Bold);
+            this.siticoneCheckBox2.ForeColor = System.Drawing.SystemColors.Window;
+            this.siticoneCheckBox2.Location = new System.Drawing.Point(17, 167);
+            this.siticoneCheckBox2.Name = "siticoneCheckBox2";
+            this.siticoneCheckBox2.Size = new System.Drawing.Size(260, 23);
+            this.siticoneCheckBox2.TabIndex = 7;
+            this.siticoneCheckBox2.Text = "Обработать только одну страницу";
+            this.siticoneCheckBox2.UncheckedState.BorderColor = System.Drawing.Color.White;
+            this.siticoneCheckBox2.UncheckedState.BorderRadius = 1;
+            this.siticoneCheckBox2.UncheckedState.BorderThickness = 1;
+            this.siticoneCheckBox2.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(35)))));
+            this.siticoneCheckBox2.UseVisualStyleBackColor = false;
+            this.siticoneCheckBox2.CheckedChanged += new System.EventHandler(this.siticoneCheckBox2_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(35)))));
-            this.ClientSize = new System.Drawing.Size(427, 244);
+            this.ClientSize = new System.Drawing.Size(418, 271);
+            this.Controls.Add(this.siticoneCheckBox2);
             this.Controls.Add(this.siticoneCheckBox1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -236,6 +264,7 @@ namespace avitoParse
         private Siticone.Desktop.UI.WinForms.SiticoneCheckBox siticoneCheckBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Siticone.Desktop.UI.WinForms.SiticoneDragControl siticoneDragControl2;
+        private Siticone.Desktop.UI.WinForms.SiticoneCheckBox siticoneCheckBox2;
     }
 }
 

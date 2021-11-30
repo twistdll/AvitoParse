@@ -26,13 +26,27 @@ namespace avitoParse
                 InfoSerializer.WriteName(textBox1.Text);
             else
                 InfoSerializer.DeleteName();
+
+            _chromeController.CloseDriver();
+        }
+
+        private void siticoneCheckBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            ParsingMode.OnlyOnePage = siticoneCheckBox2.Checked;
         }
 
         private void siticoneButton1_Click(object sender, EventArgs e)
         {
-            _chromeController.SetRegionName(textBox1.Text);
-            _chromeController.SetQueryText(textBox2.Text);
-            StartParsing();
+            if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text))
+            {
+                siticoneButton1.Text = "Введите данные";
+            }
+            else
+            {
+                _chromeController.SetRegionName(textBox1.Text);
+                _chromeController.SetQueryText(textBox2.Text);
+                StartParsing();
+            }
         }
 
         private async void StartParsing()
@@ -47,6 +61,7 @@ namespace avitoParse
             ChangeTextBoxesState(false);
             siticoneButton1.Enabled = false;
             siticoneButton1.Text = "Идёт обработка...";
+            siticoneCheckBox2.Enabled = false;
 
         }
         private void EnableUI()
@@ -54,6 +69,7 @@ namespace avitoParse
             ChangeTextBoxesState(true);
             siticoneButton1.Text = "Начать обработку";
             siticoneButton1.Enabled = true;
+            siticoneCheckBox2.Enabled = false;
         }
 
         private void ChangeTextBoxesState(bool state)
@@ -64,6 +80,16 @@ namespace avitoParse
             {
                 textBox.Enabled = state;
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            siticoneButton1.Text = "Начать обработку";
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            siticoneButton1.Text = "Начать обработку";
         }
     }
 }
