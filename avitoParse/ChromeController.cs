@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -80,23 +81,23 @@ namespace avitoParse
 
         private List<string> GetAdsList()
         {
-            var links = _chromeDriver.FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a"));
-            var names = _chromeDriver.FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a > h3"));
-            var prices = _chromeDriver.FindElements(By.CssSelector(".price-price-BQkOZ :nth-child(2)"));
+            List<string> links = _chromeDriver
+                .FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a"))
+                .Select(e => e.GetAttribute("href"))
+                .ToList();
 
-            List<string> result = new List<string>();
+            List<string> names = _chromeDriver
+                .FindElements(By.CssSelector(".iva-item-titleStep-_CxvN a > h3"))
+                .Select(e => e.Text)
+                .ToList();
+            
+            List<string> prices = _chromeDriver
+                .FindElements(By.CssSelector(".price-price-BQkOZ :nth-child(2)"))
+                .Select(e => e.GetAttribute("content"))
+                .Select(e => e == "..." ? e = "не указана" : e)
+                .ToList();
 
-            for (int i = 0; i < links.Count; i++)
-            {
-                string price = prices[i].GetAttribute("content");
-
-                result.Add(links[i].GetAttribute("href") + " " +
-                           names[i].Text + " " + 
-                           "Цена: " + (price == "..." ? "не указана" : price)
-                    );;
-            }
-
-            return result;
+            return AdsListConstructer.Construct(links,names,prices);
         }
     }
 }
