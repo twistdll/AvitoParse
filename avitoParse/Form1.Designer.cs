@@ -44,10 +44,6 @@ namespace avitoParse
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.siticoneCheckBox1 = new Siticone.Desktop.UI.WinForms.SiticoneCheckBox();
             this.siticoneDragControl2 = new Siticone.Desktop.UI.WinForms.SiticoneDragControl(this.components);
-            this.currentPageCount = new System.Windows.Forms.Label();
-            this.totalPagesCount = new System.Windows.Forms.Label();
-            this.slashPageCount = new System.Windows.Forms.Label();
-            this.refreshButton = new Siticone.Desktop.UI.WinForms.SiticoneButton();
             this.siticonePanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -66,7 +62,7 @@ namespace avitoParse
             this.siticonePanel1.Location = new System.Drawing.Point(0, 0);
             this.siticonePanel1.Name = "siticonePanel1";
             this.siticonePanel1.ShadowDecoration.Parent = this.siticonePanel1;
-            this.siticonePanel1.Size = new System.Drawing.Size(395, 41);
+            this.siticonePanel1.Size = new System.Drawing.Size(427, 41);
             this.siticonePanel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -89,7 +85,7 @@ namespace avitoParse
             this.siticoneControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(27)))));
             this.siticoneControlBox3.HoverState.Parent = this.siticoneControlBox3;
             this.siticoneControlBox3.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox3.Location = new System.Drawing.Point(304, 0);
+            this.siticoneControlBox3.Location = new System.Drawing.Point(336, 0);
             this.siticoneControlBox3.Name = "siticoneControlBox3";
             this.siticoneControlBox3.ShadowDecoration.Parent = this.siticoneControlBox3;
             this.siticoneControlBox3.Size = new System.Drawing.Size(45, 29);
@@ -101,7 +97,7 @@ namespace avitoParse
             this.siticoneControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(27)))));
             this.siticoneControlBox1.HoverState.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.IconColor = System.Drawing.Color.White;
-            this.siticoneControlBox1.Location = new System.Drawing.Point(349, 0);
+            this.siticoneControlBox1.Location = new System.Drawing.Point(381, 0);
             this.siticoneControlBox1.Name = "siticoneControlBox1";
             this.siticoneControlBox1.ShadowDecoration.Parent = this.siticoneControlBox1;
             this.siticoneControlBox1.Size = new System.Drawing.Size(45, 29);
@@ -146,10 +142,10 @@ namespace avitoParse
             this.siticoneButton1.Font = new System.Drawing.Font("Papyrus", 13F);
             this.siticoneButton1.ForeColor = System.Drawing.Color.White;
             this.siticoneButton1.HoverState.Parent = this.siticoneButton1;
-            this.siticoneButton1.Location = new System.Drawing.Point(17, 164);
+            this.siticoneButton1.Location = new System.Drawing.Point(17, 169);
             this.siticoneButton1.Name = "siticoneButton1";
             this.siticoneButton1.ShadowDecoration.Parent = this.siticoneButton1;
-            this.siticoneButton1.Size = new System.Drawing.Size(211, 45);
+            this.siticoneButton1.Size = new System.Drawing.Size(294, 45);
             this.siticoneButton1.TabIndex = 3;
             this.siticoneButton1.Text = "Начать обработку";
             this.siticoneButton1.Click += new System.EventHandler(this.siticoneButton1_Click);
@@ -169,7 +165,7 @@ namespace avitoParse
             this.textBox2.ForeColor = System.Drawing.SystemColors.Window;
             this.textBox2.Location = new System.Drawing.Point(233, 121);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(150, 20);
+            this.textBox2.Size = new System.Drawing.Size(176, 20);
             this.textBox2.TabIndex = 5;
             // 
             // siticoneCheckBox1
@@ -199,74 +195,12 @@ namespace avitoParse
             // 
             this.siticoneDragControl2.TargetControl = this.pictureBox1;
             // 
-            // currentPageCount
-            // 
-            this.currentPageCount.AutoSize = true;
-            this.currentPageCount.Font = new System.Drawing.Font("Perpetua", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentPageCount.ForeColor = System.Drawing.SystemColors.Control;
-            this.currentPageCount.Location = new System.Drawing.Point(246, 173);
-            this.currentPageCount.Name = "currentPageCount";
-            this.currentPageCount.Size = new System.Drawing.Size(23, 28);
-            this.currentPageCount.TabIndex = 7;
-            this.currentPageCount.Text = "0";
-            this.currentPageCount.Visible = false;
-            // 
-            // totalPagesCount
-            // 
-            this.totalPagesCount.AutoSize = true;
-            this.totalPagesCount.Font = new System.Drawing.Font("Perpetua", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalPagesCount.ForeColor = System.Drawing.SystemColors.Control;
-            this.totalPagesCount.Location = new System.Drawing.Point(303, 173);
-            this.totalPagesCount.Name = "totalPagesCount";
-            this.totalPagesCount.Size = new System.Drawing.Size(23, 28);
-            this.totalPagesCount.TabIndex = 8;
-            this.totalPagesCount.Text = "0";
-            this.totalPagesCount.Visible = false;
-            // 
-            // slashPageCount
-            // 
-            this.slashPageCount.AutoSize = true;
-            this.slashPageCount.Font = new System.Drawing.Font("Perpetua", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.slashPageCount.ForeColor = System.Drawing.SystemColors.Control;
-            this.slashPageCount.Location = new System.Drawing.Point(275, 173);
-            this.slashPageCount.Name = "slashPageCount";
-            this.slashPageCount.Size = new System.Drawing.Size(24, 28);
-            this.slashPageCount.TabIndex = 9;
-            this.slashPageCount.Text = "/";
-            this.slashPageCount.Visible = false;
-            // 
-            // refreshButton
-            // 
-            this.refreshButton.CheckedState.Parent = this.refreshButton;
-            this.refreshButton.CustomImages.Parent = this.refreshButton;
-            this.refreshButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.refreshButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.refreshButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.refreshButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.refreshButton.DisabledState.Parent = this.refreshButton;
-            this.refreshButton.FillColor = System.Drawing.Color.Empty;
-            this.refreshButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.refreshButton.ForeColor = System.Drawing.Color.White;
-            this.refreshButton.HoverState.Parent = this.refreshButton;
-            this.refreshButton.Image = ((System.Drawing.Image)(resources.GetObject("refreshButton.Image")));
-            this.refreshButton.Location = new System.Drawing.Point(359, 173);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.ShadowDecoration.Parent = this.refreshButton;
-            this.refreshButton.Size = new System.Drawing.Size(24, 26);
-            this.refreshButton.TabIndex = 10;
-            this.refreshButton.Visible = false;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click_1);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(35)))));
-            this.ClientSize = new System.Drawing.Size(395, 227);
-            this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.slashPageCount);
-            this.Controls.Add(this.totalPagesCount);
-            this.Controls.Add(this.currentPageCount);
+            this.ClientSize = new System.Drawing.Size(427, 244);
             this.Controls.Add(this.siticoneCheckBox1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -302,10 +236,6 @@ namespace avitoParse
         private Siticone.Desktop.UI.WinForms.SiticoneCheckBox siticoneCheckBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Siticone.Desktop.UI.WinForms.SiticoneDragControl siticoneDragControl2;
-        private System.Windows.Forms.Label slashPageCount;
-        private System.Windows.Forms.Label totalPagesCount;
-        private System.Windows.Forms.Label currentPageCount;
-        private Siticone.Desktop.UI.WinForms.SiticoneButton refreshButton;
     }
 }
 
