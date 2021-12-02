@@ -20,6 +20,7 @@ namespace avitoParse
             _chromeOptions = new ChromeOptions();
             _chromeOptions.AddArgument("headless");
             _chromeOptions.AddArgument("start-maximized");
+            _chromeOptions.AddArgument("disable-extensions");
 
             _chromeService = ChromeDriverService.CreateDefaultService();
             _chromeService.HideCommandPromptWindow = true;
@@ -51,11 +52,13 @@ namespace avitoParse
                 InfoSerializer.WritePage(GetAdsOnPage(), i);
                 GoToNextPage(i);
             }
+
+            QuitDriver();
         }
 
-        public void CloseDriver()
+        public void QuitDriver()
         {
-            try { _chromeDriver.Close(); }
+            try { _chromeDriver.Quit(); }
             catch { return; }
         }
 

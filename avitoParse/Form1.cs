@@ -27,7 +27,7 @@ namespace avitoParse
             else
                 InfoSerializer.DeleteName();
 
-            _chromeController.CloseDriver();
+            _chromeController.QuitDriver();
         }
 
         private void siticoneCheckBox2_CheckedChanged(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace avitoParse
             ChangeTextBoxesState(true);
             siticoneButton1.Text = "Начать обработку";
             siticoneButton1.Enabled = true;
-            siticoneCheckBox2.Enabled = false;
+            siticoneCheckBox2.Enabled = true;
         }
 
         private void ChangeTextBoxesState(bool state)

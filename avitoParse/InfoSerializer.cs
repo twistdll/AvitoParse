@@ -16,7 +16,7 @@ namespace avitoParse
         public static void WriteName(string name)
         {
             File.Create(_defaultRegionFilePath).Close();
-            File.WriteAllText(_defaultRegionFilePath, name);
+            File.WriteAllText(_defaultRegionFilePath, name.Replace(name[0], char.ToUpper(name[0])));
         }
 
         public static void DeleteName()
